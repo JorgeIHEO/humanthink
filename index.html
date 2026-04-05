@@ -129,12 +129,7 @@ nav#nav {
   background-size: 128px 128px;
   pointer-events: none;
 }
-.hero-mobile-imgs { display: none; position: absolute; inset: 0; z-index: 0; }
-.hero-mobile-img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; opacity: 0; transition: opacity 1.4s var(--ease);
-}
-.hero-mobile-img.active { opacity: 1; }
+
 
 /* Contenido hero */
 .hero-content {
@@ -432,9 +427,9 @@ nav#nav {
 .modal-close:hover { color: #fff; }
 .modal-video-box { position: relative; width: 90%; max-width: 900px; background: #000; aspect-ratio: 16/9; border-radius: 4px; overflow: hidden; }
 .modal-video-box iframe { width: 100%; height: 100%; border: none; }
-.modal-carousel-box { position: relative; width: 90%; max-width: 920px; }
-.carousel-track { position: relative; overflow: hidden; border-radius: 4px; }
-.carousel-img { width: 100%; display: none; }
+.modal-carousel-box { position: relative; max-width: 90vw; max-height: 90vh; display: flex; flex-direction: column; align-items: center; }
+.carousel-track { position: relative; overflow: hidden; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+.carousel-img { display: none; max-width: 90vw; max-height: 80vh; width: auto; height: auto; object-fit: contain; border-radius: 4px; }
 .carousel-img.active { display: block; }
 .carousel-nav { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: .9rem; }
 .carousel-btn { background: rgba(255,255,255,.1); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1rem; transition: background .2s; display: flex; align-items: center; justify-content: center; }
@@ -726,8 +721,8 @@ footer {
   .nav-links, .nav-cta { display: none; }
   .nav-logo-horiz { display: none; }
   .nav-logo-block { display: block; }
-  .hero-video-wrap iframe { width: 177.78vh; height: 177.78vh; }
-  .hero-mobile-imgs { display: block; }
+  .hero-video-wrap iframe { width: 177.78vh; height: 100vh; min-width: 100%; min-height: 100%; }
+
   .portfolio-inner { grid-template-columns: 1fr; gap: 2.5rem; }
   .portfolio-grid { grid-template-columns: repeat(2,1fr); }
   .how-steps { grid-template-columns: 1fr; gap: 2rem; }
@@ -776,7 +771,7 @@ footer {
       allow="autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0"
       referrerpolicy="strict-origin-when-cross-origin" title="humanthink showreel"></iframe>
   </div>
-  <div class="hero-mobile-imgs" id="mobileImgs"></div>
+
   <div class="hero-overlay"></div>
   <div class="hero-grain"></div>
   <div class="hero-content">
@@ -873,27 +868,27 @@ footer {
         <div class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
       <div class="portfolio-item" onclick="openCarousel('rueda')">
-        <img src="img/portfolio-dl365.png" alt="La Rueda" loading="lazy">
+        <img src="img/portfolio-rueda.png" alt="La Rueda" loading="lazy">
         <div class="portfolio-item-overlay"><span class="portfolio-item-label">La Rueda</span></div>
         <div class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
       <div class="portfolio-item" onclick="openCarousel('interfaz')">
-        <img src="img/portfolio-dl365.png" alt="Interfaz" loading="lazy">
+        <img src="img/portfolio-interfaz.png" alt="Interfaz" loading="lazy">
         <div class="portfolio-item-overlay"><span class="portfolio-item-label">Interfaz</span></div>
         <div class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
       <div class="portfolio-item" onclick="openCarousel('dossier')">
-        <img src="img/portfolio-dl365.png" alt="Branding" loading="lazy">
+        <img src="img/portfolio-dossier.png" alt="Branding" loading="lazy">
         <div class="portfolio-item-overlay"><span class="portfolio-item-label">Branding</span></div>
         <div class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
       <div class="portfolio-item" onclick="openVideoModal('https://player.vimeo.com/video/657041932?autoplay=1')">
-        <img src="img/portfolio-dl365.png" alt="Video RRSS" loading="lazy">
+        <img src="img/portfolio-videorrss.png" alt="Video RRSS" loading="lazy">
         <div class="portfolio-item-overlay"><span class="portfolio-item-label">Video RRSS</span></div>
         <div class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
       <div class="portfolio-item" onclick="openVideoModal('https://player.vimeo.com/video/674895817?autoplay=1')">
-        <img src="img/portfolio-dl365.png" alt="Walmart" loading="lazy">
+        <img src="img/portfolio-walmart.png" alt="Walmart" loading="lazy">
         <div class="portfolio-item-overlay"><span class="portfolio-item-label">Walmart</span></div>
         <div class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
@@ -1111,7 +1106,7 @@ const slides = [
   {concepto:'La pertenencia',  sub:'Activa identidad, tribu y validación social.',                           ideal:'Moda urbana, deporte, comunidades'},
   {concepto:'La auto imagen',  sub:'Entrega control, proyección y seguridad personal.',                      ideal:'Belleza, cosmética, moda premium'},
   {concepto:'La autenticidad', sub:'Conecta con confianza, naturalidad y plenitud.',                         ideal:'Marcas personales, bienestar, lifestyle'},
-  {concepto:null,              sub:'No vendes productos.',                                                    ideal:'Vendes emociones que el cliente quiere sentir.', final:true}
+  {concepto:null,              sub:'Vendes emociones que el cliente quiere sentir.',                                                    ideal:'', final:true}
 ];
 
 (function() {
@@ -1124,21 +1119,15 @@ const slides = [
   var elH1    = document.querySelector('.slide-h1-fixed');
   var bar     = document.getElementById('progressBar');
 
-  /* Mobile imgs */
-  var mobileWrap = document.getElementById('mobileImgs');
-  var mobileHeroImgs = ["img/hero-mobile-1.jpg","img/hero-mobile-2.jpg","img/hero-mobile-3.jpg","img/hero-mobile-4.jpg","img/hero-mobile-5.jpg","img/hero-mobile-6.jpg","img/hero-mobile-7.jpg","img/hero-mobile-8.jpg","img/hero-mobile-9.jpg"];
-  mobileHeroImgs.forEach(function(src, i) {
-    var img = document.createElement('img');
-    img.src = src; img.className = 'hero-mobile-img' + (i===0?' active':''); img.alt = 'hero '+(i+1);
-    mobileWrap.appendChild(img);
-  });
-
   function setSlide(idx) {
     var s = slides[idx];
     if (s.final) {
       elCon.textContent = 'No vendes productos.';
       elVende.style.display = 'none';
       elH1.style.fontSize = 'clamp(2.2rem,5vw,4.2rem)';
+      elSub.textContent = 'Vendes emociones que el cliente quiere sentir.';
+      elIdeal.textContent = '';
+      return;
     } else {
       elCon.textContent = s.concepto;
       elVende.style.display = '';
@@ -1146,8 +1135,6 @@ const slides = [
     }
     elSub.textContent   = s.sub;
     elIdeal.textContent = s.ideal;
-    var imgs = mobileWrap.querySelectorAll('.hero-mobile-img');
-    imgs.forEach(function(img, i) { img.classList.toggle('active', i === idx % Math.max(imgs.length,1)); });
   }
 
   function startBar() {
