@@ -1,0 +1,31 @@
+═══════════════════════════════════════════
+  CARPETA /imagenes — humanthink
+═══════════════════════════════════════════
+
+── LOGOS ───────────────────────────────
+  logo-horizontal.png
+  logo-block.png
+
+── PORTFOLIO — THUMBNAILS ──────────────
+  portfolio-dl365.png
+  portfolio-rueda.png
+  portfolio-interfaz.png
+  portfolio-dossier.png
+  portfolio-videorrss.png
+  portfolio-walmart.png
+  portfolio-caso7.png     ← reemplazar por nombre real
+  portfolio-caso8.png     ← reemplazar por nombre real
+  portfolio-caso9.png     ← reemplazar por nombre real
+
+── PORTFOLIO — CARRUSELES ──────────────
+  portfolio-dl365-1.png / -2.png / -3.png
+  portfolio-larueda-1.png / -2.png / -3.png
+  portfolio-interfaz-1.png / -2.png / -3.png
+  portfolio-dossier-1.png / -2.png / -3.png
+  portfolio-caso7-1.png / -2.png / -3.png
+  portfolio-caso8-1.png / -2.png / -3.png
+  portfolio-caso9-1.png / -2.png / -3.png
+
+NOTA: El hero usa video Vimeo en todos los
+dispositivos. No se requieren imágenes de fondo.
+═══════════════════════════════════════════
