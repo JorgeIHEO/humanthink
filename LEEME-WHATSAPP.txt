@@ -1,0 +1,13 @@
+═══════════════════════════════════════════
+  WHATSAPP — humanthink
+═══════════════════════════════════════════
+
+Busca en index.html y js/script.js:
+  56912345678
+
+Reemplaza con tu número (sin + ni espacios):
+  569XXXXXXXX
+
+Aparece en: nav, drawer, hero, planes S/M/L
+y CTA final.
+═══════════════════════════════════════════

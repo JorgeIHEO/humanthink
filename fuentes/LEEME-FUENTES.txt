@@ -1,0 +1,12 @@
+═══════════════════════════════════════════
+  CARPETA /fuentes — humanthink
+═══════════════════════════════════════════
+
+  Qurova-Light.ttf
+  Qurova-Regular.ttf
+  Qurova-Medium.ttf
+  Qurova-SemiBold.ttf
+  Qurova-Bold.ttf
+
+Plus Jakarta Sans → Google Fonts (online).
+═══════════════════════════════════════════
