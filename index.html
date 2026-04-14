@@ -302,10 +302,40 @@ nav#nav {
 .problem-item:hover .problem-text { color: rgba(245,245,247,.85); }
 .problem-item:hover .problem-text strong { color: #fff; }
 
-/* Cita */
+/* Celda CTA roja en problems grid */
+.problem-cta {
+  background: var(--red) !important;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .3s var(--ease), transform .2s var(--ease-out) !important;
+}
+.problem-cta::before { display: none; }
+.problem-cta:hover { background: #cc0000 !important; transform: scale(.98); }
+.problem-cta-h2 {
+  font-family: 'Qurova', sans-serif;
+  font-weight: 300;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  color: #fff;
+}
+.problem-cta-arrow {
+  font-size: 2rem;
+  color: rgba(255,255,255,.7);
+  align-self: flex-end;
+  transition: transform .3s var(--ease-out), color .3s;
+}
+.problem-cta:hover .problem-cta-arrow {
+  transform: translate(4px, -4px);
+  color: #fff;
+}
+
+/* Blockquote rojo */
 .problem-quote {
   margin-top: 3.5rem;
-  padding: 2.2rem 2.8rem;
+  padding: 2.4rem 2.8rem;
   border-left: none;
   background: var(--red);
   border-radius: 4px;
@@ -321,6 +351,10 @@ nav#nav {
   font-size: .58rem; letter-spacing: .2em; text-transform: uppercase;
   color: rgba(255,255,255,.65); font-weight: 600; font-style: normal;
 }
+
+/* Count-up animado */
+.proof-num .count-val { display: inline; }
+.proof-num.counting { color: var(--red); transition: color .3s; }
 
 /* Social proof */
 .social-proof {
@@ -347,87 +381,140 @@ nav#nav {
 }
 
 /* ═══════════════════════════════════════════
-   PORTFOLIO
+   PORTFOLIO v9 — Grid cuadrado + slider mobile
 ═══════════════════════════════════════════ */
 .portfolio-section {
   background: var(--dark);
-  padding: clamp(5rem,10vw,9rem) clamp(1.5rem,6vw,6rem);
+  padding: clamp(5rem,10vw,9rem) 0;
 }
-.portfolio-inner {
-  max-width: 1240px; margin: 0 auto;
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 3.5rem;
-  align-items: center;
+.portfolio-inner { max-width: 1240px; margin: 0 auto; }
+
+/* Header full ancho */
+.portfolio-header {
+  display: flex; align-items: flex-end;
+  justify-content: space-between; gap: 2rem;
+  flex-wrap: wrap;
+  padding: 0 clamp(1.5rem,6vw,6rem);
+  margin-bottom: 2.8rem;
 }
-.portfolio-text {
+.portfolio-header-left .section-eyebrow { margin-bottom: .6rem; }
+.portfolio-header-left .section-h2 {
+  font-size: clamp(2rem,4vw,3.2rem);
+  line-height: 1.05; margin-bottom: 0;
+}
+.portfolio-header-right {
   display: flex; flex-direction: column;
-  gap: 1.2rem;
-  position: sticky; top: 80px;
+  align-items: flex-end; gap: .8rem;
 }
-.portfolio-text .section-eyebrow { margin-bottom: 0; }
-.portfolio-text .section-h2 {
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  line-height: 1.05;
-  margin-bottom: 0;
-}
-.portfolio-text .section-lead {
-  font-size: .85rem;
-  margin-bottom: 0;
-  max-width: 100%;
+.portfolio-header-right p {
+  font-size: .82rem; font-weight: 300;
+  color: var(--muted); line-height: 1.7;
+  max-width: 300px; text-align: right;
 }
 .portfolio-more {
   display: inline-flex; align-items: center; gap: .5rem;
   font-size: .62rem; font-weight: 600;
   letter-spacing: .12em; text-transform: uppercase;
   color: var(--red); border: 1px solid rgba(255,0,0,.35);
-  padding: .5rem 1rem;
+  padding: .5rem 1rem; border-radius: 2px; white-space: nowrap;
   transition: background .25s, color .25s;
-  border-radius: 2px;
-  align-self: flex-start;
-  margin-top: .4rem;
 }
 .portfolio-more:hover { background: var(--red); color: #fff; }
 
-/* Grid 3×3 */
+/* Grid 3×3 cuadrado */
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 5px;
+  gap: 3px;
+  padding: 0 clamp(1.5rem,6vw,6rem);
 }
 .portfolio-item {
   position: relative; overflow: hidden;
-  aspect-ratio: 4/3; cursor: pointer;
-  border-radius: 2px;
+  aspect-ratio: 1/1; cursor: pointer;
+  background: var(--dark2);
 }
 .portfolio-item img {
-  width: 100%; height: 100%; object-fit: cover; object-position: center;
-  transition: transform .6s var(--ease), filter .45s var(--ease);
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
   display: block;
+  transition: transform .6s var(--ease), filter .5s var(--ease);
 }
-.portfolio-item:hover img { transform: scale(1.07); filter: brightness(.45); }
+.portfolio-item:hover img { transform: scale(1.05); filter: brightness(.35); }
+
+/* Overlay — label siempre visible */
 .portfolio-item-overlay {
   position: absolute; inset: 0;
-  display: flex; align-items: flex-end; padding: .7rem;
-  opacity: 0; transition: opacity .35s var(--ease);
-  background: linear-gradient(to top, rgba(255,0,0,.7) 0%, transparent 60%);
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+  padding: .9rem;
+  background: linear-gradient(to top, rgba(0,0,0,.72) 0%, transparent 50%);
+  transition: background .4s var(--ease);
 }
-.portfolio-item:hover .portfolio-item-overlay { opacity: 1; }
+.portfolio-item:hover .portfolio-item-overlay {
+  background: linear-gradient(to top, rgba(255,0,0,.82) 0%, rgba(0,0,0,.45) 55%, transparent 100%);
+}
 .portfolio-item-label {
-  font-size: .65rem; font-weight: 600;
-  color: #fff; letter-spacing: .08em;
+  font-size: .60rem; font-weight: 700;
+  color: #fff; letter-spacing: .14em;
   text-transform: uppercase;
+  transition: letter-spacing .3s var(--ease);
 }
+.portfolio-item:hover .portfolio-item-label { letter-spacing: .22em; }
+
+/* Play badge */
 .play-badge {
   position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%,-50%) scale(.7);
-  width: 36px; height: 36px; border-radius: 50%;
-  background: rgba(255,0,0,.85);
+  transform: translate(-50%,-50%) scale(.6);
+  width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(255,0,0,.9);
   display: flex; align-items: center; justify-content: center;
-  opacity: 0; transition: opacity .35s, transform .35s var(--ease-out);
+  opacity: 0; transition: opacity .3s, transform .35s var(--ease-out);
 }
 .portfolio-item:hover .play-badge { opacity: 1; transform: translate(-50%,-50%) scale(1); }
-.play-badge svg { width: 13px; height: 13px; fill: #fff; margin-left: 2px; }
+.play-badge svg { width: 12px; height: 12px; fill: #fff; margin-left: 2px; }
+
+/* Mobile: grid vertical 1 columna */
+@media (max-width: 900px) {
+  .portfolio-section { padding: clamp(3.5rem,7vw,6rem) 0; }
+  .portfolio-inner { max-width: 100%; }
+  .portfolio-header {
+    padding: 0 1.4rem;
+    margin-bottom: 1.8rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .portfolio-header-right { display: none; }
+  .portfolio-header-left .section-h2 { font-size: clamp(1.8rem,6vw,2.6rem); }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+    padding: 0 1.4rem;
+    overflow: visible;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .portfolio-item {
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 3px;
+    flex: unset;
+  }
+  .portfolio-item-label { font-size: .60rem; letter-spacing: .10em; }
+}
+
+/* iPhone SE / X — hasta 600px: 1 columna */
+@media (max-width: 600px) {
+  .portfolio-header { padding: 0 1rem; }
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+    gap: 4px;
+  }
+  .portfolio-item { aspect-ratio: 4/3; }
+}
 
 /* ═══════════════════════════════════════════
    MODALES
@@ -690,21 +777,29 @@ nav#nav {
   padding: .24rem .7rem; border-radius: 0 0 3px 3px;
 }
 .plan-letter {
-  font-family: 'Qurova', sans-serif; font-weight: 400;
-  font-size: 3.6rem; color: var(--light); line-height: 1;
+  display: none;
 }
 .plan-name {
-  font-size: .55rem; font-weight: 300;
-  letter-spacing: .28em; text-transform: uppercase;
-  color: var(--muted2); margin-top: -.5rem;
+  display: none;
 }
-.plan-name strong {
-  color: var(--red); display: block;
-  font-size: .65rem; letter-spacing: .2em; font-weight: 600;
+/* Nombre del plan en h2 */
+.plan-title {
+  font-family: 'Qurova', sans-serif; font-weight: 300;
+  font-size: clamp(2rem, 2.8vw, 2.8rem);
+  color: var(--light); line-height: 1.0;
+  letter-spacing: -.01em;
+  margin-bottom: .3rem;
+}
+.plan-title em { font-style: normal; color: var(--red); }
+.plan-subtitle {
+  font-family: 'Qurova', sans-serif; font-weight: 400;
+  font-size: .65rem; letter-spacing: .25em;
+  text-transform: uppercase; color: var(--red);
+  display: block; margin-top: .2rem;
 }
 .plan-desc {
-  font-size: .80rem; font-weight: 300;
-  color: rgba(245,245,247,.45); line-height: 1.7;
+  font-size: .82rem; font-weight: 500;
+  color: rgba(245,245,247,.70); line-height: 1.65;
   border-top: 1px solid var(--border); padding-top: 1.2rem;
 }
 .plan-features { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
@@ -722,14 +817,22 @@ nav#nav {
 }
 .plan-features li.highlight strong { color: var(--red); }
 .plan-price { margin-top: auto; padding-top: 1.4rem; border-top: 1px solid var(--border); }
+/* Precio rediseñado — llamativo sin asustar */
 .plan-amount {
   font-family: 'Qurova', sans-serif; font-weight: 400;
-  font-size: 1.9rem; color: var(--light);
+  font-size: 1.6rem; color: var(--light);
+  display: block; line-height: 1.1;
 }
-.plan-amount.quote { font-size: 1.45rem; color: var(--red); }
+.plan-amount .price-range-sep {
+  font-size: 1rem; color: var(--muted2);
+  margin: 0 .2rem;
+}
+.plan-amount.quote {
+  font-size: 1.3rem; color: var(--red);
+}
 .plan-period {
   font-size: .62rem; font-weight: 300;
-  color: var(--muted2); display: block; margin-top: .15rem;
+  color: var(--muted2); display: block; margin-top: .3rem;
 }
 .plan-btn {
   display: block; text-align: center; margin-top: 1.2rem;
@@ -976,6 +1079,10 @@ footer {
 }
 .nav-drawer-cta:hover { background: #e00; }
 
+@media (max-width: 1024px) {
+  .problems-grid { grid-template-columns: repeat(2,1fr); }
+}
+
 @media (max-width: 900px) {
   nav#nav { padding: 0 1.2rem; height: 48px; }
   .nav-links, .nav-cta { display: none; }
@@ -984,9 +1091,6 @@ footer {
   .nav-hamburger { display: flex; }
   .nav-drawer { display: block; }
   .hero-video-wrap iframe { width: 177.78vh; height: 177.78vh; }
-  .portfolio-inner { grid-template-columns: 1fr; gap: 2rem; }
-  .portfolio-text { position: static; }
-  .portfolio-grid { grid-template-columns: repeat(2,1fr); }
   .how-steps { grid-template-columns: 1fr; gap: 2rem; }
   .how-steps::before { display: none; }
   .plans-grid { grid-template-columns: 1fr; }
@@ -997,11 +1101,54 @@ footer {
   .footer-logo { display: none; }
   .footer-logo-block { display: block; }
 }
+
 @media (max-width: 640px) {
   .problems-grid { grid-template-columns: 1fr; }
   .social-proof { flex-direction: column; }
   .social-proof-item { border-right: none; border-bottom: 1px solid var(--border); }
   .social-proof-item:last-child { border-bottom: none; }
+}
+
+/* ── iPhone X / SE / pequeños (375px–430px) ── */
+@media (max-width: 430px) {
+  /* Global */
+  .section-wrap { padding: 3.5rem 1rem; }
+  .section-h2 { font-size: clamp(1.7rem,7vw,2.2rem); letter-spacing: -.02em; }
+  .section-lead { font-size: .82rem; }
+
+  /* Hero */
+  .hero-content { padding: 0 1rem clamp(4rem,8vh,6rem); }
+  .slide-h1-fixed { font-size: clamp(2.4rem,9vw,3.2rem); }
+
+  /* Problemas */
+  .problem-item { padding: 1.6rem 1.2rem; }
+  .problem-num { font-size: 2.2rem; }
+  .problem-quote { padding: 1.4rem 1.2rem; }
+
+  /* Servicios */
+  .servicios-section { padding: 3.5rem 1rem; }
+  .canales-block { padding: 1.6rem 1.2rem; }
+  .canal-item { padding: .9rem 1rem; }
+
+  /* Planes */
+  .plans-section { padding: 3.5rem 1rem; }
+  .plan-card { padding: 2rem 1.2rem; }
+
+  /* How */
+  .how-section { padding: 3.5rem 1rem; }
+  .how-step { padding: 0 .5rem; }
+
+  /* CTA */
+  .cta-section { padding: 4rem 1rem; }
+  .cta-bg-text { font-size: 8rem; }
+  .btn-whatsapp { font-size: .72rem; padding: .9rem 1.6rem; }
+
+  /* Footer */
+  footer { padding: 1.6rem 1rem; }
+  .footer-links { gap: 1.2rem; flex-wrap: wrap; }
+
+  /* Social proof */
+  .proof-num { font-size: 2.2rem; }
 }
 </style>
 </head>
@@ -1024,7 +1171,7 @@ footer {
       </a>
     </li>
   </ul>
-  <a href="https://wa.me/56912345678?text=Hola%2C%20quiero%20un%20diagn%C3%B3stico%20gratuito%20para%20mi%20marca" target="_blank" rel="noopener" class="nav-cta">quiero empezar</a>
+  <a href="https://wa.me/56945361271?text=Hola%2C%20quiero%20un%20diagn%C3%B3stico%20gratuito%20para%20mi%20marca" target="_blank" rel="noopener" class="nav-cta">diagnóstico gratuito</a>
   <button class="nav-hamburger" id="navHamburger" aria-label="Abrir menú" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
@@ -1041,33 +1188,33 @@ footer {
       <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
       Instagram
     </a>
-    <a href="https://wa.me/56912345678?text=Hola%2C%20quiero%20un%20diagn%C3%B3stico%20gratuito%20para%20mi%20marca" target="_blank" rel="noopener" class="nav-drawer-cta">quiero empezar</a>
+    <a href="https://wa.me/56945361271?text=Hola%2C%20quiero%20un%20diagn%C3%B3stico%20gratuito%20para%20mi%20marca" target="_blank" rel="noopener" class="nav-drawer-cta">diagnóstico gratuito</a>
   </div>
 </div>
 
 <!-- ══ HERO ══ -->
 <section class="hero" id="inicio">
   <div class="hero-video-wrap">
-    <iframe src="https://player.vimeo.com/video/1177369177?h=4baf7d17e5&autoplay=1&muted=1&loop=1&background=1&autopause=0"
+    <iframe src="https://player.vimeo.com/video/1183099040?autoplay=1&muted=1&loop=1&background=1&autopause=0"
       allow="autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0"
       referrerpolicy="strict-origin-when-cross-origin" title="humanthink showreel"></iframe>
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-grain"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow">Consultora Creativa · Santiago, Chile</p>
+    <p class="hero-eyebrow">Dirección de Arte & Branding Estratégico · Santiago, Chile</p>
     <div class="hero-slides" id="heroSlides">
       <div class="slide-fade-wrap" id="slideFadeWrap">
         <h1 class="slide-h1-fixed">
           <span id="slideConcepto">El deseo</span><em class="slide-vende"> vende</em>
         </h1>
-        <p class="slide-sub" id="slideSub">Conecta con lo que tu cliente desea sentir — antes de que lo piense.</p>
+        <p class="slide-sub" id="slideSub">Conecta con lo que tu cliente desea sentir, antes de que lo piense.</p>
         <p class="slide-ideal" id="slideIdeal">Retail, moda, gastronomía, turismo, lifestyle</p>
       </div>
     </div>
     <div class="hero-cta-wrap" id="heroCta">
-      <a href="https://wa.me/56912345678?text=Hola%2C%20quiero%20un%20diagn%C3%B3stico%20gratuito%20para%20mi%20marca" target="_blank" rel="noopener" class="btn-primary">solicitar diagnóstico</a>
-      <a href="#planes" class="btn-outline">ver planes</a>
+      <a href="https://wa.me/56945361271?text=Hola%2C%20quiero%20un%20diagn%C3%B3stico%20gratuito%20para%20mi%20marca" target="_blank" rel="noopener" class="btn-primary">diagnóstico gratuito</a>
+      <a href="#planes" class="btn-outline">conocer planes</a>
     </div>
   </div>
   <div class="hero-scroll">scroll</div>
@@ -1078,61 +1225,65 @@ footer {
 <div class="divider"></div>
 <section class="section-wrap problem-section" id="problema">
   <div class="section-inner">
-    <span class="section-eyebrow reveal">¿te suena familiar?</span>
-    <h2 class="section-h2 reveal">Lo que le cuesta dinero<br>a tu marca <em>todos los días.</em></h2>
-    <p class="section-lead reveal">Tu marca habla todos los días. La pregunta es si está diciendo algo que convierte — o solo ruido que cuesta plata.</p>
+    <span class="section-eyebrow reveal">diagnóstico rápido</span>
+    <h2 class="section-h2 reveal">Lo que frena el crecimiento<br>de tu marca <em>hoy.</em></h2>
+    <p class="section-lead reveal">Tu marca comunica algo todos los días. La pregunta es si ese mensaje construye o dispersa.</p>
 
     <div class="problems-grid">
       <div class="problem-item reveal">
         <div class="problem-num">01</div>
-        <p class="problem-text">Pagas nivel junior y obtienes resultados junior. <strong>Tu marca lo refleja</strong> — y tus clientes lo sienten.</p>
+        <p class="problem-text">Inviertes en diseño y los resultados no se reflejan en ventas. <strong>El problema no es el diseño.</strong> Es la falta de estrategia detrás.</p>
       </div>
       <div class="problem-item reveal">
         <div class="problem-num">02</div>
-        <p class="problem-text">Tu marca está <strong>desalineada con tus ventas</strong>. Pareces una cosa y vendes otra.</p>
+        <p class="problem-text">Tu marca dice una cosa y tu propuesta comercial dice otra. <strong>Esa inconsistencia la percibe tu cliente</strong> antes de comprarte.</p>
       </div>
       <div class="problem-item reveal">
         <div class="problem-num">03</div>
-        <p class="problem-text">Piezas bonitas que <strong>no venden</strong>. Agencias que no entienden tu negocio y te cobran igual.</p>
+        <p class="problem-text">Tienes proveedores creativos, no un socio estratégico. <strong>Hacen piezas, no piensan tu negocio.</strong></p>
       </div>
       <div class="problem-item reveal">
         <div class="problem-num">04</div>
-        <p class="problem-text">Tu equipo comercial trabaja <strong>sin apoyo visual ni conceptual</strong>. Venden a palo seco.</p>
+        <p class="problem-text">Tu equipo comercial opera sin respaldo visual ni conceptual. <strong>La marca no les ayuda a vender.</strong> Los deja solos en la reunión.</p>
       </div>
       <div class="problem-item reveal">
         <div class="problem-num">05</div>
-        <p class="problem-text">Cada campaña parte <strong>desde cero</strong>. Sin sistema, sin coherencia, sin memoria de marca.</p>
+        <p class="problem-text">Cada campaña comienza desde cero. <strong>Sin sistema de marca</strong>, sin coherencia acumulada, sin memoria visual.</p>
       </div>
       <div class="problem-item reveal">
         <div class="problem-num">06</div>
-        <p class="problem-text">Tu competencia <strong>se ve más grande</strong> que tú — aunque tú seas mejor. El diseño les da ventaja.</p>
+        <p class="problem-text">Tu competencia se ve más sólida, aunque tu producto sea mejor. <strong>La percepción de marca define la decisión de compra.</strong></p>
       </div>
       <div class="problem-item reveal">
         <div class="problem-num">07</div>
-        <p class="problem-text">Llevas meses publicando en Instagram <strong>sin identidad clara</strong>. Tu perfil parece de tres personas distintas. Canva no es una estrategia.</p>
+        <p class="problem-text">Llevas meses publicando contenido sin un sistema de identidad. <strong>Tu presencia digital parece improvisada</strong> y tus clientes lo perciben.</p>
       </div>
       <div class="problem-item reveal">
         <div class="problem-num">08</div>
-        <p class="problem-text">Hiciste un Reel que funcionó — pero el link de bio <strong>no convierte</strong>. No tienes una página que cierre la venta.</p>
+        <p class="problem-text">Generas tráfico pero no conversión. <strong>Sin una landing estratégica</strong>, cada campaña pierde su retorno en el último paso.</p>
       </div>
+      <a href="https://wa.me/56945361271?text=Hola%2C%20quiero%20un%20diagn%C3%B3stico%20gratuito%20para%20mi%20marca" target="_blank" rel="noopener" class="problem-item problem-cta reveal">
+        <h2 class="problem-cta-h2">¿Te<br>ayudamos?</h2>
+        <span class="problem-cta-arrow">→</span>
+      </a>
     </div>
 
     <blockquote class="problem-quote reveal">
       <p>"El diseño sin propósito es un gasto. El branding sin análisis es una ruleta. La creatividad sin dirección es solo decoración."</p>
-      <cite>— humanthink</cite>
+      <cite>humanthink</cite>
     </blockquote>
 
-    <div class="social-proof reveal">
+    <div class="social-proof reveal" id="socialProof">
       <div class="social-proof-item">
-        <div class="proof-num">+20</div>
+        <div class="proof-num" data-prefix="+" data-target="20"><span class="count-val">+20</span></div>
         <div class="proof-label">años de experiencia</div>
       </div>
       <div class="social-proof-item">
-        <div class="proof-num">+80</div>
+        <div class="proof-num" data-prefix="+" data-target="80"><span class="count-val">+80</span></div>
         <div class="proof-label">proyectos realizados</div>
       </div>
       <div class="social-proof-item">
-        <div class="proof-num accent">0</div>
+        <div class="proof-num accent" data-prefix="" data-target="0"><span class="count-val">0</span></div>
         <div class="proof-label">plantillas genéricas</div>
       </div>
     </div>
@@ -1143,12 +1294,18 @@ footer {
 <div class="divider"></div>
 <section class="portfolio-section" id="trabajos">
   <div class="portfolio-inner">
-    <div class="portfolio-text">
-      <span class="section-eyebrow reveal">casos reales</span>
-      <h2 class="section-h2 reveal">Ya lo hicimos.<br>Lo podemos<br>hacer <em>por ti.</em></h2>
-      <p class="section-lead reveal">Marcas que dejaron de ser wallpaper de LinkedIn para ser recordadas.</p>
-      <a href="#contacto" class="portfolio-more reveal">ver más casos &rarr;</a>
+    <!-- Header full ancho -->
+    <div class="portfolio-header">
+      <div class="portfolio-header-left">
+        <span class="section-eyebrow reveal">casos reales</span>
+        <h2 class="section-h2 reveal">Trabajo que habla<br>por sí <em>solo.</em></h2>
+      </div>
+      <div class="portfolio-header-right reveal">
+        <p>Marcas construidas con criterio estratégico y ejecución sin concesiones.</p>
+        <a href="#contacto" class="portfolio-more">ver más trabajo &rarr;</a>
+      </div>
     </div>
+    <!-- Grid cuadrado 3×3 -->
     <div class="portfolio-grid reveal">
       <div class="portfolio-item" onclick="openCarousel('dl365')">
         <img src="imagenes/portfolio-dl365.png" alt="DL365" loading="lazy">
@@ -1225,8 +1382,8 @@ footer {
 <section class="servicios-section" id="servicios">
   <div class="servicios-inner">
     <span class="section-eyebrow reveal">lo que hacemos</span>
-    <h2 class="section-h2 reveal">Tu marca, construida<br>desde <em>cero hasta vender.</em></h2>
-    <p class="section-lead reveal">No solo diseño. Estrategia, identidad, contenido y conversión — todo alineado, todo coherente.</p>
+    <h2 class="section-h2 reveal">Desde la estrategia<br>hasta <em>la conversión.</em></h2>
+    <p class="section-lead reveal">No somos un proveedor de piezas. Somos el equipo creativo que piensa tu marca y la ejecuta con foco en resultados.</p>
 
     <div class="servicios-grid">
 
@@ -1236,7 +1393,7 @@ footer {
           <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-14h2v6l-2-2V6zm0 8h2v2h-2z"/></svg>
         </div>
         <p class="servicio-title">Branding & Identidad de Marca</p>
-        <p class="servicio-desc">Creamos tu marca desde cero: naming, logo, paleta de colores, tipografías, tono de voz y manual de identidad. Te mostramos cómo se vería en el mundo real antes de imprimir un peso.</p>
+        <p class="servicio-desc">Construimos tu identidad desde cero: naming, logo, paleta, tipografía, tono de voz y manual de marca. Todo documentado, todo aplicable, todo tuyo.</p>
         <div class="servicio-tags">
           <span class="servicio-tag">Logo</span>
           <span class="servicio-tag">Brand Book</span>
@@ -1251,7 +1408,7 @@ footer {
           <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
         </div>
         <p class="servicio-title">Contenido & Videos para RRSS</p>
-        <p class="servicio-desc">Diseñamos gráficas, Reels y videos cortos que hablan el lenguaje de tu marca. Contenido que vende lo que haces, muestra lo que vendes y comunica la experiencia de tu negocio.</p>
+        <p class="servicio-desc">Gráficas, motion y video corto con dirección de arte. Contenido que comunica tu marca con coherencia, sin piezas sueltas ni criterio visual improvisado.</p>
         <div class="servicio-tags">
           <span class="servicio-tag">Reels</span>
           <span class="servicio-tag">TikTok</span>
@@ -1266,7 +1423,7 @@ footer {
           <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zM6 10h2v2H6zm0 4h8v2H6zm4-4h8v2h-8z"/></svg>
         </div>
         <p class="servicio-title">Landing Pages que Convierten</p>
-        <p class="servicio-desc">La página que cierra la venta después de tu Reel o campaña. Diseñada para convertir visitas en clientes — con tu identidad, tu oferta y un solo objetivo claro. Lista en 5 días hábiles.</p>
+        <p class="servicio-desc">El destino donde tu campaña convierte. Diseñada con tu identidad, tu oferta y un solo objetivo: transformar visitas en clientes. Entrega en 5 días hábiles.</p>
         <div class="servicio-tags">
           <span class="servicio-tag">Post-Reel</span>
           <span class="servicio-tag">Campañas</span>
@@ -1281,7 +1438,7 @@ footer {
           <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg>
         </div>
         <p class="servicio-title">Estrategia de Marca & Canales</p>
-        <p class="servicio-desc">Definimos qué decir, dónde decirlo y cómo decirlo. Analizamos tu negocio, tu competencia y tu cliente para diseñar una estrategia coherente en Instagram, TikTok y web.</p>
+        <p class="servicio-desc">Definimos qué comunicar, en qué canales y con qué tono. Un mapa claro para que cada pieza que produzas tenga dirección y acumulación de marca.</p>
         <div class="servicio-tags">
           <span class="servicio-tag">Diagnóstico</span>
           <span class="servicio-tag">Calendario</span>
@@ -1295,7 +1452,7 @@ footer {
           <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
         </div>
         <p class="servicio-title">Gráfica Comercial & Kit de Ventas</p>
-        <p class="servicio-desc">Presentaciones, dossiers, catálogos y materiales para que tu equipo venda con respaldo visual. Diseño que habla por tu marca cuando tú no estás en la sala.</p>
+        <p class="servicio-desc">Presentaciones, dossiers y materiales de apoyo comercial con el nivel visual que tu propuesta merece. Diseño que cierra reuniones.</p>
         <div class="servicio-tags">
           <span class="servicio-tag">Dossier</span>
           <span class="servicio-tag">Catálogo</span>
@@ -1308,8 +1465,8 @@ footer {
         <div class="servicio-icon">
           <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
         </div>
-        <p class="servicio-title">Asesoría para Emprendedores</p>
-        <p class="servicio-desc">¿Lo intentaste solo y te perdiste? Sin juicio. Revisamos lo que tienes, ordenamos el caos y te decimos exactamente qué hacer primero. Una sesión puede ahorrarte meses de errores.</p>
+        <p class="servicio-title">Asesoría de Marca</p>
+        <p class="servicio-desc">Revisamos lo que tienes, identificamos el problema real y definimos el camino. Una sesión estructurada puede ahorrarte meses de decisiones equivocadas.</p>
         <div class="servicio-tags">
           <span class="servicio-tag">1:1</span>
           <span class="servicio-tag">Diagnóstico</span>
@@ -1322,37 +1479,37 @@ footer {
     <!-- Bloque canales integrados -->
     <div class="canales-block reveal">
       <div class="canales-text">
-        <span class="section-eyebrow">ecosistema de canales</span>
-        <h3>No es solo un logo.<br>Es cómo suenas en <em>TikTok</em>,<br>cómo vendes en <em>Instagram</em><br>y cómo te encuentran<br>en <em>Google.</em></h3>
-        <p>Pensamos tu marca en todos los canales al mismo tiempo — con un solo lenguaje visual y un solo mensaje. Lo que publicas en TikTok tiene que hablar igual que tu landing, que tu Instagram, que tu WhatsApp.</p>
+        <span class="section-eyebrow">presencia integrada</span>
+        <h3>Una marca.<br>Todos los <em>canales.</em><br>Un solo lenguaje.</h3>
+        <p>Diseñamos tu identidad pensando en todos los puntos de contacto al mismo tiempo. Lo que comunica tu Instagram tiene que resonar en tu web, en tu landing y en tu WhatsApp Business.</p>
       </div>
       <div class="canales-list">
         <div class="canal-item">
           <div class="canal-dot"></div>
           <div>
             <p class="canal-name">Instagram</p>
-            <p class="canal-desc">Vitrina de marca, venta social y construcción de comunidad. Feed coherente, highlights diseñados, bio optimizada.</p>
+            <p class="canal-desc">Vitrina estratégica de marca. Feed con sistema visual, highlights funcionales y bio optimizada para conversión.</p>
           </div>
         </div>
         <div class="canal-item">
           <div class="canal-dot"></div>
           <div>
             <p class="canal-name">TikTok</p>
-            <p class="canal-desc">Descubrimiento y viralidad. Contenido que muestra lo que haces, lo que vendes y la experiencia de tu marca.</p>
+            <p class="canal-desc">Canal de descubrimiento y autoridad. Contenido con dirección de arte que posiciona y genera demanda real.</p>
           </div>
         </div>
         <div class="canal-item">
           <div class="canal-dot"></div>
           <div>
             <p class="canal-name">Landing Page</p>
-            <p class="canal-desc">El destino que convierte. Donde tu Reel o campaña llega a cerrar la venta — no a perder al cliente.</p>
+            <p class="canal-desc">El punto donde la campaña se cierra. Diseñada para convertir, no para informar.</p>
           </div>
         </div>
         <div class="canal-item">
           <div class="canal-dot"></div>
           <div>
             <p class="canal-name">WhatsApp Business</p>
-            <p class="canal-desc">El canal donde el emprendedor chileno cierra negocios. Lo configuramos con tu identidad y tus respuestas.</p>
+            <p class="canal-desc">El canal donde se cierran negocios en Chile. Lo configuramos con tu identidad, tus mensajes y tu flujo comercial.</p>
           </div>
         </div>
       </div>
@@ -1365,38 +1522,38 @@ footer {
 <div class="divider"></div>
 <section class="how-section" id="como">
   <div class="how-inner">
-    <span class="section-eyebrow reveal">cómo trabajamos</span>
-    <h2 class="section-h2 reveal">Diagnóstico primero.<br><em>Resultados</em> después.</h2>
-    <p class="section-lead reveal" style="max-width:100%">Sin plantillas. Sin adornos. Cada proyecto parte desde la verdad de tu negocio.</p>
+    <span class="section-eyebrow reveal">metodología</span>
+    <h2 class="section-h2 reveal">Proceso claro.<br><em>Resultados</em> concretos.</h2>
+    <p class="section-lead reveal" style="max-width:100%">Cada proyecto tiene un punto de partida, un camino definido y entregables medibles. Sin improvisación.</p>
     <div class="how-steps">
       <div class="how-step reveal">
         <div class="how-step-num">01</div>
         <p class="how-step-title">Levantamiento</p>
-        <p class="how-step-desc">Escuchamos tu negocio, tu cliente y tus objetivos reales</p>
+        <p class="how-step-desc">Analizamos tu negocio, tu mercado y tus objetivos reales de comunicación</p>
       </div>
       <div class="how-step reveal">
         <div class="how-step-num">02</div>
         <p class="how-step-title">Diagnóstico</p>
-        <p class="how-step-desc">Detectamos brechas de marca, tono, canales y look &amp; feel</p>
+        <p class="how-step-desc">Identificamos brechas de marca, tono, canales y coherencia visual</p>
       </div>
       <div class="how-step reveal">
         <div class="how-step-num">03</div>
         <p class="how-step-title">Propuesta</p>
-        <p class="how-step-desc">Branding, naming, arte, visuales y piezas clave con foco comercial</p>
+        <p class="how-step-desc">Concepto creativo, branding, visuales y piezas clave con foco estratégico</p>
       </div>
       <div class="how-step reveal">
         <div class="how-step-num">04</div>
         <p class="how-step-title">Ejecución</p>
-        <p class="how-step-desc">Creatividad alineada a ventas, no a likes. Sin burocracia</p>
+        <p class="how-step-desc">Producción alineada a conversión. Creatividad con propósito comercial</p>
       </div>
       <div class="how-step reveal">
         <div class="how-step-num">05</div>
-        <p class="how-step-title">Entrega</p>
-        <p class="how-step-desc">Resultados medibles, con soporte continuo y Gantt claro</p>
+        <p class="how-step-title">Seguimiento</p>
+        <p class="how-step-desc">Métricas, ajustes y soporte continuo. El trabajo no termina en la entrega</p>
       </div>
     </div>
     <div class="guarantee-block reveal">
-      <p><strong>Sin sorpresas.</strong> Antes de firmar, tienes claridad total de qué se hace, cuándo y para qué. Si en los primeros 30 días no ves avance concreto, conversamos.</p>
+      <p><strong>Claridad antes de empezar.</strong> Antes de comprometerte, tienes definido qué se hace, cuándo y con qué indicadores de éxito. Sin sorpresas ni condiciones ocultas.</p>
     </div>
   </div>
 </section>
@@ -1406,81 +1563,80 @@ footer {
 <section class="plans-section" id="planes">
   <div class="plans-inner">
     <div class="plans-header">
-      <span class="section-eyebrow reveal">fee mensual · contrato plan anual 12 meses</span>
-      <h2 class="section-h2 reveal">Menos que un junior.<br><em>Cerebro</em> senior.</h2>
-      <p class="section-lead reveal">Un diseñador freelance senior en Chile cobra entre $800.000 y $1.500.000 al mes — y solo hace piezas, no piensa tu marca. Aquí tienes dirección creativa, estrategia y ejecución. Por menos.</p>
+      <span class="section-eyebrow reveal">fee mensual · contrato anual</span>
+      <h2 class="section-h2 reveal">Dirección creativa senior.<br><em>Sin contratar</em> un equipo.</h2>
+      <p class="section-lead reveal">Armar un equipo creativo interno con este nivel de experiencia supera los $3.000.000 mensuales. Con humanthink, tienes estrategia, dirección de arte y ejecución en un solo contrato.</p>
     </div>
 
     <div class="plans-grid">
       <!-- PLAN S -->
       <article class="plan-card reveal">
         <div>
-          <div class="plan-letter">S</div>
-          <div class="plan-name">small <strong>think</strong></div>
+          <h2 class="plan-title">Small</h2>
+          <span class="plan-subtitle">think</span>
         </div>
-        <p class="plan-desc">Para emprendedores y pymes que parten desde cero o quieren ordenar su marca. Restaurantes, tiendas, servicios locales — si tienes un negocio pero no tienes una marca, empezamos aquí.</p>
+        <p class="plan-desc">Para quienes quieren una marca real sin tener que construirla solos. Ideal para negocios que ya operan pero aún no tienen una identidad que los represente.</p>
         <ul class="plan-features">
-          <li><strong>Diagnóstico inicial de marca</strong> sin costo adicional</li>
+          <li><strong>Diagnóstico inicial de marca</strong> incluido</li>
           <li>Logo + paleta + tipografía (brand starter)</li>
-          <li>Lineamiento simple de marca</li>
-          <li>3 diseños semanales para RRSS</li>
+          <li>Lineamiento de marca</li>
+          <li>2 diseños gráfica estática semanal para RRSS</li>
           <li>1 concepto y slogan mensual</li>
-          <li>Perfil de Instagram configurado y alineado</li>
+          <li>Perfil de Instagram ordenado y alineado a la marca</li>
           <li>Cronograma + soporte mensual</li>
           <li class="dim">Sin landing pages ni motion graphics</li>
         </ul>
         <div class="plan-price">
-          <span class="plan-amount">$590.000</span>
-          <span class="plan-period">mensual · contrato plan anual 12 meses</span>
-          <a href="https://wa.me/56912345678?text=Hola%2C%20me%20interesa%20el%20plan%20S%20de%20humanthink" target="_blank" rel="noopener" class="plan-btn">quiero este plan</a>
+          <span class="plan-amount">$600.000 <span class="price-range-sep">–</span> $800.000</span>
+          <span class="plan-period">mensual · contrato anual 12 meses · IVA no incluido</span>
+          <a href="https://wa.me/56945361271?text=Hola%2C%20me%20interesa%20el%20plan%20Small%20de%20humanthink" target="_blank" rel="noopener" class="plan-btn">quiero este plan</a>
         </div>
       </article>
 
       <!-- PLAN M -->
       <article class="plan-card featured reveal">
         <div>
-          <div class="plan-letter">M</div>
-          <div class="plan-name">medium <strong>think</strong></div>
+          <h2 class="plan-title">Medium</h2>
+          <span class="plan-subtitle">think</span>
         </div>
-        <p class="plan-desc">Para marcas que ya existen y quieren crecer en serio. Retail, clínicas, inmobiliarias, educación — cualquier pyme que necesite contenido que venda y canales que funcionen.</p>
+        <p class="plan-desc">Para empresas que ya tienen presencia pero necesitan coherencia, sistema y contenido que genere resultados. El plan para el tomador de decisiones que entiende que la marca es una inversión.</p>
         <ul class="plan-features">
           <li>Research + dirección creativa integral</li>
           <li>2 campañas mensuales (Instagram + TikTok)</li>
-          <li>12 diseños + 2 motion graphics</li>
-          <li><strong>1 video corto mensual</strong> (formato Reels)</li>
-          <li><strong>1 landing page</strong> por trimestre</li>
-          <li>Reuniones + storytelling + Gantt</li>
+          <li>12 diseños estáticos mensuales</li>
+          <li>2 motion graphics mensual (15 seg. c/u)</li>
+          <li><strong>1 landing page</strong> y actualización trimestral</li>
+          <li>Reuniones de trabajo + Gantt</li>
           <li class="highlight"><strong>Estrategia mensual</strong> con revisión de métricas</li>
         </ul>
         <div class="plan-price">
-          <span class="plan-amount">$980.000</span>
-          <span class="plan-period">mensual · contrato plan anual 12 meses</span>
-          <a href="https://wa.me/56912345678?text=Hola%2C%20me%20interesa%20el%20plan%20M%20de%20humanthink" target="_blank" rel="noopener" class="plan-btn">este es mi plan</a>
+          <span class="plan-amount">$900.000 <span class="price-range-sep">–</span> $1.300.000</span>
+          <span class="plan-period">mensual · contrato anual 12 meses · IVA no incluido</span>
+          <a href="https://wa.me/56945361271?text=Hola%2C%20me%20interesa%20el%20plan%20Medium%20de%20humanthink" target="_blank" rel="noopener" class="plan-btn">este es mi plan</a>
         </div>
       </article>
 
       <!-- PLAN L -->
       <article class="plan-card reveal">
         <div>
-          <div class="plan-letter">L</div>
-          <div class="plan-name">large <strong>think</strong></div>
+          <h2 class="plan-title">Large</h2>
+          <span class="plan-subtitle">think</span>
         </div>
-        <p class="plan-desc">Para empresas que compiten en serio. Industria, salud, construcción, distribución — marcas que necesitan un socio creativo estratégico permanente, no un proveedor de turno.</p>
+        <p class="plan-desc">Para organizaciones que requieren un socio creativo de alto nivel con visión estratégica y capacidad de ejecución integral. No un proveedor, sino un aliado que entiende tu negocio.</p>
         <ul class="plan-features">
           <li>Diagnóstico estratégico y auditoría de marca</li>
-          <li>Dirección de arte senior dedicada</li>
+          <li>Dirección de arte senior (diagnóstico, propuestas, producción)</li>
           <li>Estrategia de contenidos y campañas a medida</li>
           <li>Producción audiovisual y motion graphics</li>
-          <li><strong>Landing pages bajo demanda</strong> (lanzamientos y campañas)</li>
-          <li><strong>Kit de ventas</strong> (dossier, presentación, catálogo)</li>
-          <li>Acompañamiento ejecutivo + consultoría comercial</li>
-          <li>Gestión de equipos creativos</li>
-          <li>Reportería y métricas de impacto mensual</li>
+          <li><strong>Landing pages</strong> según necesidad de campaña</li>
+          <li><strong>Kit comercial</strong> (dossier, presentación, catálogo)</li>
+          <li>Acompañamiento ejecutivo + apoyo área comercial</li>
+          <li>Análisis de métricas e informes</li>
         </ul>
         <div class="plan-price">
-          <span class="plan-amount quote">desde $1.800.000</span>
-          <span class="plan-period">Propuesta personalizada · según alcance y objetivos</span>
-          <a href="https://wa.me/56912345678?text=Hola%2C%20me%20interesa%20el%20plan%20L%20de%20humanthink" target="_blank" rel="noopener" class="plan-btn">solicitar propuesta</a>
+          <span class="plan-amount quote">Desde $1.700.000</span>
+          <span class="plan-period">Propuesta a medida · según alcance · IVA no incluido</span>
+          <a href="https://wa.me/56945361271?text=Hola%2C%20quiero%20conversar%20sobre%20el%20plan%20Large%20de%20humanthink" target="_blank" rel="noopener" class="plan-btn">conversemos tu proyecto</a>
         </div>
       </article>
     </div>
@@ -1491,27 +1647,27 @@ footer {
     <div class="faq-grid reveal">
       <div class="faq-item">
         <p class="faq-q">¿Puedo cambiar de plan?</p>
-        <p class="faq-a">Sí. Si tu negocio crece y necesitas más, ajustamos el plan sin penalidades.</p>
+        <p class="faq-a">Sí. Si tu negocio escala y necesitas más alcance, ajustamos el plan. Sin penalidades, con continuidad.</p>
       </div>
       <div class="faq-item">
         <p class="faq-q">¿Qué pasa al terminar el año?</p>
-        <p class="faq-a">Renovas o te vas — sin letra chica. La mayoría renueva porque los resultados hablan.</p>
+        <p class="faq-a">Renuevas o no, sin condiciones ocultas. La mayoría continúa porque el trabajo acumulado de marca tiene valor.</p>
       </div>
       <div class="faq-item">
         <p class="faq-q">¿Cuándo veo resultados?</p>
-        <p class="faq-a">El diagnóstico es inmediato. Las primeras piezas en 2 semanas. El impacto de marca, en 90 días.</p>
+        <p class="faq-a">El diagnóstico es inmediato. Las primeras piezas en 2 semanas. El impacto de marca se consolida en 90 días.</p>
       </div>
       <div class="faq-item">
-        <p class="faq-q">¿Hacen logos y branding desde cero?</p>
-        <p class="faq-a">Sí. Si no tienes marca o la que tienes ya no funciona, partimos desde el principio — naming, logo, paleta, tono y manual.</p>
+        <p class="faq-q">¿Hacen identidad de marca desde cero?</p>
+        <p class="faq-a">Sí. Naming, logo, paleta, tipografía, tono de voz y manual. Todo lo que necesitas para existir con criterio.</p>
       </div>
       <div class="faq-item">
-        <p class="faq-q">¿Puedo pedir solo una landing page?</p>
-        <p class="faq-a">Sí, como servicio independiente desde $180.000. Si después te sumas a un plan, ese valor se descuenta del primer mes.</p>
+        <p class="faq-q">¿Puedo contratar solo una landing page?</p>
+        <p class="faq-a">Sí, como servicio independiente desde $180.000. Si luego te incorporas a un plan, ese valor se descuenta del primer mes.</p>
       </div>
       <div class="faq-item">
-        <p class="faq-q">¿Trabajan con emprendedores chicos?</p>
-        <p class="faq-a">Especialmente con ellos. Si lo intentaste solo y te perdiste, el plan S está diseñado exactamente para eso.</p>
+        <p class="faq-q">¿Con qué tipo de empresas trabajan?</p>
+        <p class="faq-a">Con quienes entienden que la marca es una herramienta de negocio. Desde emprendimientos hasta empresas medianas con equipos comerciales.</p>
       </div>
     </div>
 
@@ -1521,7 +1677,7 @@ footer {
 <!-- ══ WHY ══ -->
 <section class="why-section">
   <div class="why-inner">
-    <h2 class="section-h2 reveal">Las marcas que se recuerdan<br><em>no nacen así.</em><br>Las construyen.</h2>
+    <h2 class="section-h2 reveal">Las marcas que perduran<br><em>no se improvisan.</em><br>Se construyen.</h2>
   </div>
 </section>
 
@@ -1529,11 +1685,11 @@ footer {
 <section class="cta-section" id="contacto">
   <div class="cta-bg-text">HT</div>
   <div class="cta-content">
-    <span class="section-eyebrow reveal">hablemos</span>
-    <h2 class="section-h2 reveal">Tu marca tiene potencial.<br><em>Déjanos mostrártelo.</em></h2>
-    <p class="cta-desc reveal">30 minutos. Diagnóstico sin costo. Sin compromiso.<br>Solo la verdad de lo que necesita tu marca para crecer.</p>
+    <span class="section-eyebrow reveal">siguiente paso</span>
+    <h2 class="section-h2 reveal">30 minutos.<br><em>Diagnóstico sin costo.</em></h2>
+    <p class="cta-desc reveal">Sin compromiso ni presentaciones genéricas. Una conversación directa sobre tu marca, tus objetivos y lo que realmente necesitas para crecer.</p>
     <div class="cta-wa-wrap reveal">
-      <a href="https://wa.me/56912345678?text=Hola%2C%20quiero%20un%20diagn%C3%B3stico%20gratuito%20para%20mi%20marca" target="_blank" rel="noopener" class="btn-whatsapp">
+      <a href="https://wa.me/56945361271?text=Hola%2C%20quiero%20un%20diagn%C3%B3stico%20gratuito%20para%20mi%20marca" target="_blank" rel="noopener" class="btn-whatsapp">
         <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         Escribir por WhatsApp
       </a>
@@ -1563,7 +1719,7 @@ footer {
 <script>
 /* ── SLIDES ── */
 const slides = [
-  {concepto:'El deseo',        sub:'Conecta con lo que tu cliente desea sentir — antes de que lo piense.',  ideal:'Retail, moda, gastronomía, turismo, lifestyle'},
+  {concepto:'El deseo',        sub:'Conecta con lo que tu cliente desea sentir, antes de que lo piense.',  ideal:'Retail, moda, gastronomía, turismo, lifestyle'},
   {concepto:'La felicidad',    sub:'Conecta con alegría, nostalgia y emociones positivas.',                  ideal:'Alimentos, retail, marcas familiares, experiencias'},
   {concepto:'La seguridad',    sub:'Refuerza protección, confianza y estabilidad.',                          ideal:'Seguros, bancos, salud, inmobiliaria'},
   {concepto:'El bienestar',    sub:'Transforma hábitos en experiencias positivas.',                          ideal:'Higiene, salud, cuidado personal, wellness'},
@@ -1705,6 +1861,63 @@ if (window.location.protocol !== 'file:') {
 })();
 
 /* (CTA WhatsApp — no requiere JS) */
+
+/* ── Drag to scroll en portfolio grid (desktop) ── */
+(function() {
+  var grid = document.querySelector('.portfolio-grid');
+  if (!grid) return;
+  var isDown = false, startX, scrollLeft;
+  grid.addEventListener('mousedown', function(e) {
+    isDown = true; grid.classList.add('active');
+    startX = e.pageX - grid.offsetLeft;
+    scrollLeft = grid.scrollLeft;
+  });
+  grid.addEventListener('mouseleave', function() { isDown = false; grid.classList.remove('active'); });
+  grid.addEventListener('mouseup',    function() { isDown = false; grid.classList.remove('active'); });
+  grid.addEventListener('mousemove',  function(e) {
+    if (!isDown) return;
+    e.preventDefault();
+    var x = e.pageX - grid.offsetLeft;
+    var walk = (x - startX) * 1.5;
+    grid.scrollLeft = scrollLeft - walk;
+  });
+})();
+
+/* ── Count-up social proof ── */
+(function() {
+  var items = document.querySelectorAll('.proof-num[data-target]');
+  if (!items.length) return;
+  var done = false;
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (!e.isIntersecting || done) return;
+      done = true;
+      items.forEach(function(el) {
+        var target  = parseInt(el.getAttribute('data-target'), 10);
+        var prefix  = el.getAttribute('data-prefix') || '';
+        var span    = el.querySelector('.count-val');
+        if (!span) return;
+        if (target === 0) { span.textContent = '0'; return; }
+        el.classList.add('counting');
+        var start = 0, dur = 1600, startTime = null;
+        function step(ts) {
+          if (!startTime) startTime = ts;
+          var p    = Math.min((ts - startTime) / dur, 1);
+          var ease = 1 - Math.pow(1 - p, 3);
+          span.textContent = prefix + Math.floor(ease * target);
+          if (p < 1) { requestAnimationFrame(step); }
+          else {
+            span.textContent = prefix + target;
+            el.classList.remove('counting');
+          }
+        }
+        requestAnimationFrame(step);
+      });
+    });
+  }, { threshold: 0.6 });
+  var section = document.getElementById('socialProof');
+  if (section) obs.observe(section);
+})();
 </script>
 </body>
 </html>
