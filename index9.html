@@ -302,8 +302,35 @@ nav#nav {
 .problem-item:hover .problem-text { color: rgba(245,245,247,.85); }
 .problem-item:hover .problem-text strong { color: #fff; }
 
-/* Cita */
-.problem-quote {
+/* Celda CTA roja en problems grid */
+.problem-cta {
+  background: var(--red) !important;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .3s var(--ease), transform .2s var(--ease-out) !important;
+}
+.problem-cta::before { display: none; }
+.problem-cta:hover { background: #cc0000 !important; transform: scale(.98); }
+.problem-cta-h2 {
+  font-family: 'Qurova', sans-serif;
+  font-weight: 300;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  color: #fff;
+}
+.problem-cta-arrow {
+  font-size: 2rem;
+  color: rgba(255,255,255,.7);
+  align-self: flex-end;
+  transition: transform .3s var(--ease-out), color .3s;
+}
+.problem-cta:hover .problem-cta-arrow {
+  transform: translate(4px, -4px);
+  color: #fff;
+}
   margin-top: 3.5rem;
   padding: 2.2rem 2.8rem;
   border-left: none;
@@ -353,7 +380,7 @@ nav#nav {
   background: var(--dark);
   padding: clamp(5rem,10vw,9rem) 0;
 }
-.portfolio-inner { max-width: 1240px; margin: 0 auto; overflow: hidden; }
+.portfolio-inner { max-width: 1240px; margin: 0 auto; }
 
 /* Header full ancho */
 .portfolio-header {
@@ -439,10 +466,10 @@ nav#nav {
 .portfolio-item:hover .play-badge { opacity: 1; transform: translate(-50%,-50%) scale(1); }
 .play-badge svg { width: 12px; height: 12px; fill: #fff; margin-left: 2px; }
 
-/* Mobile: slider horizontal deslizable con snap */
+/* Mobile: grid vertical 1 columna */
 @media (max-width: 900px) {
   .portfolio-section { padding: clamp(3.5rem,7vw,6rem) 0; }
-  .portfolio-inner { max-width: 100%; overflow: hidden; }
+  .portfolio-inner { max-width: 100%; }
   .portfolio-header {
     padding: 0 1.4rem;
     margin-bottom: 1.8rem;
@@ -453,49 +480,33 @@ nav#nav {
   .portfolio-header-right { display: none; }
   .portfolio-header-left .section-h2 { font-size: clamp(1.8rem,6vw,2.6rem); }
   .portfolio-grid {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    padding: 0 1.4rem 1.4rem;
-    overflow-x: scroll;
-    overflow-y: visible;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+    padding: 0 1.4rem;
+    overflow: visible;
     width: 100%;
     box-sizing: border-box;
   }
-  .portfolio-grid::-webkit-scrollbar { display: none; }
   .portfolio-item {
-    flex: 0 0 72vw;
-    width: 72vw;
-    max-width: 72vw;
-    min-width: unset;
+    width: 100%;
+    max-width: 100%;
     aspect-ratio: 1/1;
-    scroll-snap-align: start;
-    border-radius: 4px;
+    border-radius: 3px;
+    flex: unset;
   }
   .portfolio-item-label { font-size: .60rem; letter-spacing: .10em; }
 }
 
-/* iPad mini 768px — 3 items visibles */
-@media (max-width: 820px) and (min-width: 601px) {
-  .portfolio-item {
-    flex: 0 0 46vw;
-    width: 46vw;
-    max-width: 46vw;
-  }
-}
-
-/* iPhone SE / X / estándar — hasta 600px */
+/* iPhone SE / X — hasta 600px: 1 columna */
 @media (max-width: 600px) {
   .portfolio-header { padding: 0 1rem; }
-  .portfolio-grid { padding: 0 1rem 1rem; gap: 6px; }
-  .portfolio-item {
-    flex: 0 0 82vw;
-    width: 82vw;
-    max-width: 82vw;
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+    gap: 4px;
   }
+  .portfolio-item { aspect-ratio: 4/3; }
 }
 
 /* ═══════════════════════════════════════════
@@ -1228,6 +1239,10 @@ footer {
         <div class="problem-num">08</div>
         <p class="problem-text">Hiciste un Reel que funcionó — pero el link de bio <strong>no convierte</strong>. No tienes una página que cierre la venta.</p>
       </div>
+      <a href="https://wa.me/56912345678?text=Hola%2C%20quiero%20un%20diagn%C3%B3stico%20gratuito%20para%20mi%20marca" target="_blank" rel="noopener" class="problem-item problem-cta reveal">
+        <h2 class="problem-cta-h2">¿Te<br>ayudamos?</h2>
+        <span class="problem-cta-arrow">→</span>
+      </a>
     </div>
 
     <blockquote class="problem-quote reveal">
